@@ -1,5 +1,5 @@
-# only find first and last
 # add unittest
+# get only find first and last digit
 
 number_dict = {
     'zero': 0,
