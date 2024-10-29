@@ -33,51 +33,36 @@ def part1(input_data: list[str], char_arr: list[list[str]]) -> int:
 
 def part2(input_data: list[str], char_arr: list[list[str]]) -> int:
     print('-----Part2-----')
-    # find all * next ot exactly 2 numbers
-    # gear ratio is 2 nums multiplied together
-    # sum of gear ratios
-
-    # check digits aren't part of same number
-
     # find all *
     iterator = re.compile(r'\*')
     line_num = 0
     offset = [-1, 0, 1, -1, 1, -1, 0, 1]
+    total = 0
     for line in input_data:
-        print(line)
         for i in iterator.finditer(line):
-            # check numbers distance to point 1 from each digit, if less than 2 add to array
             # check surrounding lines for numbers
+            adj_nums = []
             for j in range(3):
                 nums = find_nums(input_data[line_num + j - 1])
                 for num in nums:
                     k = 0
-                    chars = list(str(num))
+                    chars = list(str(num.group()))
                     for char in chars:
+                        # check numbers distance to point 1 from each digit, if less than 2 add to array
                         dist = math.dist((num.start() + k, line_num + j - 1), (i.start() , line_num))
+                        # must be adjacent to exactly 2 part numbers
                         if dist < 2:
-                            print(num.group(), dist, num.start() + k, line_num + j - 1, i.start(), line_num)
+                            adj_nums.append(num.group())
+                            break
                         k += 1
-            # # get neighbours of *
-            # neighbours = get_neighbours(char_arr, line_num, i.start(), 1)
-            # # * * *
-            # # * N *
-            # # * * *
-            # j = 0
-            # n1 = neighbours[0:3]
-            # n2 = neighbours[3:5]
-            # n3 = neighbours[5:8]
-            # print(neighbours, n1, n2, n3)
-            # for neighbour in neighbours:
-            #     if neighbour.isdigit():
-            #         number_search(line, i.start() + offset[j])
-            #     j += 1
+            if len(adj_nums) == 2:
+                total += (int(adj_nums[0]) * int(adj_nums[1]))
         line_num += 1
-    return 0
+    return total
 
 def main() -> None:
     print('-----DayN-----')
-    input_data = get_data('test.txt')
+    input_data = get_data('input.txt')
     char_arr = raw_to_char_arr(input_data)
     print(part1(input_data, char_arr))
     print(part2(input_data, char_arr))
