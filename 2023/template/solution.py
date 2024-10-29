@@ -2,11 +2,13 @@ from utils.utils import *
 
 def part1(input_data: list[str]) -> int:
     print('-----Part1-----')
-    return 0
+    total = 0
+    return total
 
 def part2(input_data: list[str]) -> int:
     print('-----Part2-----')
-    return 0
+    total = 0
+    return total
 
 def main() -> None:
     print('-----DayN-----')
