@@ -2,7 +2,6 @@ from utils.utils import *
 
 def part1(input_data: list[str]) -> int:
     print('-----Part1-----')
-    n_matches = 0
     total = 0
     for line in input_data:
         winning_nums = list(filter(''.__ne__, line.split(':')[1].split('|')[0].split(' ')))
