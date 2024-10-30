@@ -2,6 +2,10 @@ from utils.utils import *
 
 def part1(input_data: list[str]) -> int:
     print('-----Part1-----')
+    # destination, source, range length
+    # any source numbers that aren't mapped correspond to the same destination number
+    # output the lowest location
+    # dictionary
     ans = 0
     return ans
 

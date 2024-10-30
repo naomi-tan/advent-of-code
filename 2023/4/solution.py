@@ -1,3 +1,4 @@
+# use dictionary/graph instead of class
 from utils.utils import *
 
 class Card:
@@ -32,16 +33,14 @@ def part2(input_data: list[str]) -> int:
         cards.append(card)
 
     card_no = 0
+    total = 0
     for card in cards:
+        total += card.no_of_cards
         for n in range(card.no_of_cards):
             n_matches = len(card.winning_nums + card.numbers) - len(list(set(card.winning_nums + card.numbers)))
             for m in range(n_matches):
                 cards[card_no + m + 1].increase()
         card_no += 1
-
-    total = 0
-    for card in cards:
-        total += card.no_of_cards
 
     return total
 
