@@ -4,7 +4,7 @@ import solution
 
 test_data = get_arr('test.txt')
 expected_result1 = 11
-expected_result2 = 0
+expected_result2 = 31
 
 class TestSolution(unittest.TestCase):
 
