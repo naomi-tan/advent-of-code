@@ -1,9 +1,26 @@
 import re
 
+def get_raw(path: str) -> str:
+    """gets raw data from input.txt file, returns data as a string"""
+    file = open(path, 'r')
+    data: str = file.read()
+    file.close()
+    return data
+
 def get_data(path: str) -> list[str]:
     """gets data from input.txt file, returns data as a list of strings, each item is a line in the input.txt file"""
     file = open(path, 'r')
     data: list[str] = file.read().split('\n')
+    file.close()
+    return data
+
+def get_arr(path: str) -> list[list[str]]:
+    """gets data from input.txt file, returns data as a list of strings, each item is a line in the input.txt file"""
+    file = open(path, 'r')
+    lines: list[str] = file.read().split('\n')
+    data: list[list[str]] = []
+    for line in lines:
+        data.append(line.split())
     file.close()
     return data
 
