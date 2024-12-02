@@ -1,46 +1,7 @@
 from utils.utils import *
 import numpy as np
 
-def part1(input_data: list[str]) -> int:
-    print('-----Part1-----')
-    count: int = 0
-    for report in input_data:
-        # split report into numbers
-        values: object = np.array(list(map(lambda a: int(a), report.split())))
-        if check_safety2(values):
-            count += 1
-    return count
-
 def check_safety(values: object) -> bool:
-    # init stop cases
-    safe: bool = True
-    i: int = 1
-
-    # init vars
-    prev_val: int = values[0]
-    increasing: bool = values[1] > values[0]
-
-    while safe and (i < values.size):
-        # check same
-        curr_val = values[i]
-        if values[i] == prev_val:
-            safe = False
-
-        # check change in diff
-        curr_d = values[i] > prev_val
-        if curr_d != increasing:
-            safe = False
-
-        # check abs change
-        if abs(values[i] - prev_val) > 3:
-            safe = False
-
-        prev_val = curr_val
-        i += 1
-
-    return safe
-
-def check_safety2(values: object) -> bool:
     # shift numbers 1 position
     shift: object = np.insert(values, 0, [0])
 
@@ -62,18 +23,29 @@ def check_safety2(values: object) -> bool:
     else:
         return False
 
+def part1(input_data: list[str]) -> int:
+    print('-----Part1-----')
+    count: int = 0
+    for report in input_data:
+        # split report into numbers
+        values: object = np.array(list(map(lambda a: int(a), report.split())))
+        if check_safety(values):
+            count += 1
+    return count
+
 def part2(input_data: list[str]) -> int:
     print('-----Part2-----')
     count: int = 0
     for report in input_data:
         # split report into numbers
         values: object = np.array(list(map(lambda a: int(a), report.split())))
-        if check_safety2(values):
+        if check_safety(values):
             count += 1
         else:
+            # more efficient if just remove 2 that cause problem
             for i in range(values.size):
                 removed_vals = np.delete(values, i)
-                if check_safety2(removed_vals):
+                if check_safety(removed_vals):
                     count += 1
                     break
 
