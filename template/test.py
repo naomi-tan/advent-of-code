@@ -3,8 +3,8 @@ from utils.utils import *
 import solution
 
 test_data = get_data('test.txt')
-expected_result1 = 0
-expected_result2 = 0
+expected_result1 = -1
+expected_result2 = -1
 
 class TestSolution(unittest.TestCase):
 
