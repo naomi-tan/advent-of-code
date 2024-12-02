@@ -5,14 +5,13 @@ def part1(input_data: list[str]) -> int:
     print('-----Part1-----')
     count: int = 0
     for report in input_data:
-        if check_safety2(report):
+        # split report into numbers
+        values: object = np.array(list(map(lambda a: int(a), report.split())))
+        if check_safety2(values):
             count += 1
     return count
 
-def check_safety(report: str) -> bool:
-    # split report into numbers
-    values: list[int] = list(map(lambda a: int(a), report.split()))
-
+def check_safety(values: object) -> bool:
     # init stop cases
     safe: bool = True
     i: int = 1
@@ -21,7 +20,7 @@ def check_safety(report: str) -> bool:
     prev_val: int = values[0]
     increasing: bool = values[1] > values[0]
 
-    while safe and (i < len(values)):
+    while safe and (i < values.size):
         # check same
         curr_val = values[i]
         if values[i] == prev_val:
@@ -41,10 +40,7 @@ def check_safety(report: str) -> bool:
 
     return safe
 
-def check_safety2(report: str) -> bool:
-    # split report into numbers
-    values: object = np.array(list(map(lambda a: int(a), report.split())))
-
+def check_safety2(values: object) -> bool:
     # shift numbers 1 position
     shift: object = np.insert(values, 0, [0])
 
@@ -66,17 +62,22 @@ def check_safety2(report: str) -> bool:
     else:
         return False
 
-
 def part2(input_data: list[str]) -> int:
     print('-----Part2-----')
-    ans = 0
-    # if fails, remove number it fails on and test
-    # if that fails remove other numbers
-    # if all fails, not safe
+    count: int = 0
+    for report in input_data:
+        # split report into numbers
+        values: object = np.array(list(map(lambda a: int(a), report.split())))
+        if check_safety2(values):
+            count += 1
+        else:
+            for i in range(values.size):
+                removed_vals = np.delete(values, i)
+                if check_safety2(removed_vals):
+                    count += 1
+                    break
 
-    # shift all vals 1 space
-    # subtract
-    return ans
+    return count
 
 def main() -> None:
     print('-----DayN-----')
