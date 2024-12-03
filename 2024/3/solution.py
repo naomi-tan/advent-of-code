@@ -51,11 +51,24 @@ def part2(input_data: str) -> int:
             ans += digits[0] * digits[1]
     return ans
 
+def part2_2(input_data: str) -> int:
+    do: list[str] = re.findall(r'do\(\)(.*?)don\'t\(\)', f'do(){input_data}don\'t()')
+    # starts with start of string or do, ends with end of string or don't
+    ans = 0
+    for d in do:
+        m: list[str] = re.findall(r'mul\([0-9]{1,3},[0-9]{1,3}\)',d)
+        for i in m:
+            ans += math.prod(list(map(lambda a: int(a), re.findall('[0-9]{1,3}', i))))
+    return ans
+
+def part2line(input_data: str) -> int:
+    return sum(list(map(lambda d: sum(list(map(lambda a: math.prod(list(map(lambda a: int(a), re.findall('[0-9]{1,3}', a)))), re.findall(r'mul\([0-9]{1,3},[0-9]{1,3}\)',d)))), re.findall(r'do\(\)(.*?)don\'t\(\)', f'do(){input_data}don\'t()'.replace('\n', '')))))
+
 def main() -> None:
     print('-----DayN-----')
     input_data = get_raw('input.txt')
     print(part1line(input_data))
-    print(part2(input_data))
+    print(part2line(input_data))
 
 if __name__ == '__main__':
     main()
