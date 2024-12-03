@@ -3,8 +3,9 @@ from utils.utils import *
 import solution
 
 test_data = get_raw('test.txt')
+test_data2 = get_raw('test2.txt')
 expected_result1 = 161
-expected_result2 = -1
+expected_result2 = 48
 
 class TestSolution(unittest.TestCase):
 
@@ -14,7 +15,7 @@ class TestSolution(unittest.TestCase):
 
     def test_part2(self):
         print('testing part 2...')
-        self.assertEqual(solution.part2(test_data), expected_result2)
+        self.assertEqual(solution.part2(test_data2), expected_result2)
 
 if __name__ == '__main__':
     unittest.main()
