@@ -2,7 +2,6 @@ from utils.utils import *
 
 def part1(input_data: list[list[str]]) -> int:
     print('-----Part1-----')
-
     # split data into 2 columns
     col1: list[int] = []
     col2: list[int] = []
@@ -18,12 +17,10 @@ def part1(input_data: list[list[str]]) -> int:
     distance = 0
     for i in range(len(col1)):
         distance += abs(col1[i] - col2[i])
-
     return distance
 
 def part2(input_data: list[list[str]]) -> int:
     print('-----Part2-----')
-
     # split data into 2 columns
     col1: list[int] = []
     col2: list[int] = []
@@ -42,13 +39,11 @@ def part2(input_data: list[list[str]]) -> int:
         app2: int = appearances(col2, col1[0])
         similarity += app1 * col1[0] * app2
         col1 = col1[app1:]
-
     return similarity
 
 def appearances(input_ls: list[int], n: int) -> int:
     n = len(list(filter(lambda a : a == n, input_ls)))
     return n
-
 
 def main() -> None:
     print('-----DayN-----')

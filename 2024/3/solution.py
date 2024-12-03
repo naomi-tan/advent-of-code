@@ -14,6 +14,9 @@ def part1(input_data: str) -> int:
         ans += digits[0] * digits[1]
     return ans
 
+def part1line(input_data: str) -> int:
+    return sum(list(map(lambda a: math.prod(list(map(lambda b: int(b), re.findall('[0-9]{1,3}', a)))), re.findall(r'mul\([0-9]{1,3},[0-9]{1,3}\)', input_data))))
+
 def part2(input_data: str) -> int:
     print('-----Part2-----')
     # find all valid instructions
@@ -51,7 +54,7 @@ def part2(input_data: str) -> int:
 def main() -> None:
     print('-----DayN-----')
     input_data = get_raw('input.txt')
-    print(part1(input_data))
+    print(part1line(input_data))
     print(part2(input_data))
 
 if __name__ == '__main__':
