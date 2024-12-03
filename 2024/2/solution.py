@@ -48,7 +48,6 @@ def part2(input_data: list[str]) -> int:
                 if check_safety(removed_vals):
                     count += 1
                     break
-
     return count
 
 def main() -> None:
