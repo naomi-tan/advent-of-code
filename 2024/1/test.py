@@ -2,7 +2,7 @@ import unittest
 from utils.utils import *
 import solution
 
-test_data = get_arr('test.txt')
+test_data = read_word_arr('test.txt')
 expected_result1 = 11
 expected_result2 = 31
 

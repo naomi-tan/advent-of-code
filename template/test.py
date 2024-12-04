@@ -2,7 +2,7 @@ import unittest
 from utils.utils import *
 import solution
 
-test_data = get_data('test.txt')
+test_data = read_lines('test.txt')
 expected_result1 = -1
 expected_result2 = -1
 

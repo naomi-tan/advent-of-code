@@ -2,8 +2,8 @@ import unittest
 from utils.utils import *
 import solution
 
-test_data = get_raw('test.txt')
-test_data2 = get_raw('test2.txt')
+test_data = read_str('test.txt')
+test_data2 = read_str('test2.txt')
 expected_result1 = 161
 expected_result2 = 48
 

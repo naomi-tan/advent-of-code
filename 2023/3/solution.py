@@ -62,8 +62,8 @@ def part2(input_data: list[str], char_arr: list[list[str]]) -> int:
 
 def main() -> None:
     print('-----DayN-----')
-    input_data = get_data('input.txt')
-    char_arr = raw_to_char_arr(input_data)
+    input_data = read_lines('input.txt')
+    char_arr = read_char_arr('input.txt')
     print(part1(input_data, char_arr))
     print(part2(input_data, char_arr))
 

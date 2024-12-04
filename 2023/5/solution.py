@@ -171,7 +171,7 @@ def part2(input_data: list[str]) -> int:
 def main() -> None:
     print('-----DayN-----')
     # destination, source, length
-    input_data = get_data('test.txt')
+    input_data = read_lines('test.txt')
     print(part1(input_data))
     print(part2(input_data))
 

@@ -46,7 +46,7 @@ def part2(input_data: list[str]) -> int:
 
 def main() -> None:
     print('-----DayN-----')
-    input_data = get_data('input.txt')
+    input_data = read_lines('input.txt')
     print(part1(input_data))
     print(part2(input_data))
 

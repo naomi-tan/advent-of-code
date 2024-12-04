@@ -66,7 +66,7 @@ def part2line(input_data: str) -> int:
 
 def main() -> None:
     print('-----DayN-----')
-    input_data = get_raw('input.txt')
+    input_data = read_str('input.txt')
     print(part1line(input_data))
     print(part2line(input_data))
 

@@ -1,20 +1,20 @@
 import re
 
-def get_raw(path: str) -> str:
+def read_str(path: str) -> str: # get_raw
     """gets raw data from input.txt file, returns data as a string"""
     file = open(path, 'r')
     data: str = file.read()
     file.close()
     return data
 
-def get_data(path: str) -> list[str]:
+def read_lines(path: str) -> list[str]: # get_data
     """gets data from input.txt file, returns data as a list of strings, each item is a line in the input.txt file"""
     file = open(path, 'r')
     data: list[str] = file.read().split('\n')
     file.close()
     return data
 
-def get_arr(path: str) -> list[list[str]]:
+def read_word_arr(path: str) -> list[list[str]]: # get_arr
     """gets data from input.txt file, returns data as a list of strings, each item is a line in the input.txt file"""
     file = open(path, 'r')
     lines: list[str] = file.read().split('\n')
@@ -24,12 +24,15 @@ def get_arr(path: str) -> list[list[str]]:
     file.close()
     return data
 
-def raw_to_char_arr(raw: list[str]) -> list[list[str]]:
+def read_char_arr(path: str) -> list[list[str]]: # raw_to_char_arr
     """converts raw input data from list of lines to array of chars, returns list of list of chars"""
-    char_arr = []
-    for line in raw:
-        char_arr.append(list(line))
-    return char_arr
+    file = open(path, 'r')
+    lines: list[str] = file.read().split('\n')
+    data: list[list[str]] = []
+    for line in lines:
+        data.append(list(line))
+    file.close()
+    return data
 
 def find_nums(line: str) -> list[object]:
     """finds position and value of all numbers (digits) in input string, returns list of re.Match objects"""

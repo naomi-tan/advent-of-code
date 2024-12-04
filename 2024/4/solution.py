@@ -3,6 +3,10 @@ from utils.utils import *
 def part1(input_data: list[str]) -> int:
     print('-----Part1-----')
     ans = 0
+    # search for all X
+    # get neighbours
+    # if M get direction
+    # check for A S in same direction
     return ans
 
 def part2(input_data: list[str]) -> int:

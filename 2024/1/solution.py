@@ -47,7 +47,7 @@ def appearances(input_ls: list[int], n: int) -> int:
 
 def main() -> None:
     print('-----DayN-----')
-    input_data = get_arr('input.txt')
+    input_data = read_word_arr('input.txt')
     print(part1(input_data))
     print(part2(input_data))
 
