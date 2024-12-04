@@ -2,7 +2,7 @@ import unittest
 from utils.utils import *
 import solution
 
-test_data = read_lines('test.txt')
+test_data = read_char_arr('test.txt')
 expected_result1 = 18
 expected_result2 = -1
 
