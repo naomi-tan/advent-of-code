@@ -33,6 +33,23 @@ def part1(input_data: list[list[str]]) -> int:
 def part2(input_data: list[list[str]]) -> int:
     print('-----Part2-----')
     ans = 0
+    row = 0
+    # search for all A
+    for line in input_data:
+        col = 0
+        for char in line:
+            if char == 'A':
+                # get neighbours
+                neighbours = get_neighbours(input_data, row, col, 1)
+                n_str = ''.join(neighbours)
+                patterns = [r'M.M..S.S', r'S.M..S.M', r'S.S..M.M', r'M.S..M.S']
+                for p in patterns:
+                    if len(re.findall(p, n_str)) > 0:
+                        ans += 1
+                        break
+                # check match
+            col += 1
+        row += 1
     return ans
 
 def main() -> None:
@@ -40,6 +57,7 @@ def main() -> None:
     input_data = read_char_arr('input.txt')
     print(part1(input_data))
     print(part2(input_data))
+    # 2010 too high
 
 if __name__ == '__main__':
     main()
