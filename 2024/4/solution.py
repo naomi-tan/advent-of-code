@@ -2,21 +2,21 @@ from utils.utils import *
 
 def part1(input_data: list[list[str]]) -> int:
     print('-----Part1-----')
-    ans = 0
-    row = 0
+    ans: int = 0
+    row: int = 0
     # search for all X
     for line in input_data:
-        col = 0
+        col: int = 0
         for char in line:
             if char == 'X':
                 # get neighbours
-                neighbours = get_neighbours(input_data, row, col, 1)
-                i = 0
+                neighbours: list[str] = get_neighbours(input_data, row, col, 1)
+                i: int = 0
                 for n in neighbours:
                     if n == 'M':
                         # if M get direction
-                        dx = [-1, 0, 1, -1, 1, -1, 0, 1]
-                        dy = [-1, -1, -1, 0, 0, 1, 1, 1]
+                        dx: list[int] = [-1, 0, 1, -1, 1, -1, 0, 1]
+                        dy: list[int] = [-1, -1, -1, 0, 0, 1, 1, 1]
                         x_pos: list[int] = [row, col]
                         m_pos: list[int] = [row + dy[i], col + dx[i]]
                         a_pos: list[int] = [row + 2*dy[i], col + 2*dx[i]]
@@ -32,22 +32,22 @@ def part1(input_data: list[list[str]]) -> int:
 
 def part2(input_data: list[list[str]]) -> int:
     print('-----Part2-----')
-    ans = 0
-    row = 0
+    ans: int = 0
+    row: int = 0
     # search for all A
     for line in input_data:
-        col = 0
+        col: int = 0
         for char in line:
             if char == 'A':
                 # get neighbours
-                neighbours = get_neighbours(input_data, row, col, 1)
-                n_str = ''.join(neighbours)
-                patterns = [r'M.M..S.S', r'S.M..S.M', r'S.S..M.M', r'M.S..M.S']
+                neighbours: list[str] = get_neighbours(input_data, row, col, 1)
+                n_str: str = ''.join(neighbours)
+                patterns: list[str] = [r'M.M..S.S', r'S.M..S.M', r'S.S..M.M', r'M.S..M.S']
+                # check for X pattern
                 for p in patterns:
                     if len(re.findall(p, n_str)) > 0:
                         ans += 1
                         break
-                # check match
             col += 1
         row += 1
     return ans
