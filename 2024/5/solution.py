@@ -12,15 +12,7 @@ def part1(rules: str, updates: list[list[str]]) -> int:
             # append all rules containing page number to list of rules
             pattern: str = '((?:,\d+\||,)' + page + '(?:\|.*?,|,))'
             rules_ls.extend(re.findall(pattern, rules))
-        for r in rules_ls:
-            # get numbers listed in rule
-            [r1, r2] = r.replace(',', '').split('|')
-            # check numbers exist in update
-            if update.count(r1) > 0 and update.count(r2) > 0:
-                    # find position of each number in rule in pages ls and check rules are followed
-                    if update.index(r1) > update.index(r2):
-                        compliant = False
-                        break
+        compliant = check_compliant(rules_ls, update)
         # check if update follows all rules
         if compliant:
             middle: int = round((len(update) - 1) / 2)
@@ -38,37 +30,45 @@ def part2(rules: str, updates: list[list[str]]) -> int:
             # append all rules containing page number to list of rules
             pattern: str = '((?:,\d+\||,)' + page + '(?:\|.*?,|,))'
             rules_ls.extend(re.findall(pattern, rules))
+        compliant = check_compliant(rules_ls, update)
+        if not compliant:
+            update = fix_update(rules_ls, update)
+            ans += int(update[round((len(update) - 1) / 2)])
+    return ans
+
+def check_compliant(rules_ls: list[str], update: list[str]) -> bool:
+    compliant = True
+    for r in rules_ls:
+        # get numbers listed in rule
+        [r1, r2] = r.replace(',', '').split('|')
+        # check numbers exist in update
+        if update.count(r1) > 0 and update.count(r2) > 0:
+            # find position of each number in rule in pages ls and check rules are followed
+            if update.index(r1) > update.index(r2):
+                compliant = False
+                break
+    return compliant
+
+def fix_update(rules_ls: list[str], update: list[str]) -> list[str]:
+    broken: bool = True
+    # loop until update is not broken
+    while broken:
+        fixes: int = 0
         for r in rules_ls:
             # get numbers listed in rule
             [r1, r2] = r.replace(',', '').split('|')
             # check numbers exist in update
             if update.count(r1) > 0 and update.count(r2) > 0:
-                    # find position of each number in rule in pages ls and check rules are followed
-                    if update.index(r1) > update.index(r2):
-                        compliant = False
-                        break
-        if not compliant:
-            broken: bool = True
-            # loop until update is not broken
-            while broken:
-                fixes: int = 0
-                for r in rules_ls:
-                    # get numbers listed in rule
-                    [r1, r2] = r.replace(',', '').split('|')
-                    # check numbers exist in update
-                    if update.count(r1) > 0 and update.count(r2) > 0:
-                            # find position of each number in rule in pages ls and check rules are followed
-                            if update.index(r1) > update.index(r2):
-                                # move bad page number to index that follow ruls
-                                update.remove(r1)
-                                update.insert(update.index(r2), r1)
-                                fixes += 1
-                # check if update follows all rules
-                if fixes == 0:
-                    middle: int = round((len(update) - 1) / 2)
-                    ans += int(update[middle])
-                    broken = False
-    return ans
+                # find position of each number in rule in pages ls and check rules are followed
+                if update.index(r1) > update.index(r2):
+                    # move bad page number to index that follow rules
+                    update.remove(r1)
+                    update.insert(update.index(r2), r1)
+                    fixes += 1
+        # check if update follows all rules
+        if fixes == 0:
+            broken = False
+    return update
 
 def main() -> None:
     print('-----DayN-----')
