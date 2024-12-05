@@ -1,4 +1,5 @@
-from utils.utils import *
+from utils import utils
+import re
 
 def part1(input_data: list[list[str]]) -> int:
     print('-----Part1-----')
@@ -10,7 +11,7 @@ def part1(input_data: list[list[str]]) -> int:
         for char in line:
             if char == 'X':
                 # get neighbours
-                neighbours: list[str] = get_neighbours(input_data, row, col, 1)
+                neighbours: list[str] = utils.get_neighbours(input_data, row, col, 1)
                 i: int = 0
                 for n in neighbours:
                     if n == 'M':
@@ -40,7 +41,7 @@ def part2(input_data: list[list[str]]) -> int:
         for char in line:
             if char == 'A':
                 # get neighbours
-                neighbours: list[str] = get_neighbours(input_data, row, col, 1)
+                neighbours: list[str] = utils.get_neighbours(input_data, row, col, 1)
                 n_str: str = ''.join(neighbours)
                 patterns: list[str] = [r'M.M..S.S', r'S.M..S.M', r'S.S..M.M', r'M.S..M.S']
                 # check for X pattern
@@ -54,7 +55,7 @@ def part2(input_data: list[list[str]]) -> int:
 
 def main() -> None:
     print('-----DayN-----')
-    input_data = read_char_arr('input.txt')
+    input_data = utils.read_char_arr('input.txt')
     print(part1(input_data))
     print(part2(input_data))
     # 2010 too high
