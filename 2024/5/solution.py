@@ -16,8 +16,7 @@ def part1(rules: str, updates: list[list[str]]) -> int:
             # get numbers listed in rule
             [r1, r2] = r.replace(',', '').split('|')
             # check numbers exist in update
-            if update.count(r1) > 0:
-                if update.count(r2) > 0:
+            if update.count(r1) > 0 and update.count(r2) > 0:
                     # find position of each number in rule in pages ls and check rules are followed
                     if update.index(r1) > update.index(r2):
                         compliant = False
@@ -43,8 +42,7 @@ def part2(rules: str, updates: list[list[str]]) -> int:
             # get numbers listed in rule
             [r1, r2] = r.replace(',', '').split('|')
             # check numbers exist in update
-            if update.count(r1) > 0:
-                if update.count(r2) > 0:
+            if update.count(r1) > 0 and update.count(r2) > 0:
                     # find position of each number in rule in pages ls and check rules are followed
                     if update.index(r1) > update.index(r2):
                         compliant = False
@@ -58,8 +56,7 @@ def part2(rules: str, updates: list[list[str]]) -> int:
                     # get numbers listed in rule
                     [r1, r2] = r.replace(',', '').split('|')
                     # check numbers exist in update
-                    if update.count(r1) > 0:
-                        if update.count(r2) > 0:
+                    if update.count(r1) > 0 and update.count(r2) > 0:
                             # find position of each number in rule in pages ls and check rules are followed
                             if update.index(r1) > update.index(r2):
                                 # move bad page number to index that follow ruls
@@ -77,9 +74,9 @@ def main() -> None:
     print('-----DayN-----')
     input_data = utils.read_str('input.txt')
     rules: str = ',' + input_data.split('\n\n')[0].replace('\n', ',') + ','
-    pages: list[list[str]] = list(map(lambda b: b.split(','), input_data.split('\n\n')[1].split('\n')))
-    print(part1(rules, pages))
-    print(part2(rules, pages))
+    updates: list[list[str]] = list(map(lambda b: b.split(','), input_data.split('\n\n')[1].split('\n')))
+    print(part1(rules, updates))
+    print(part2(rules, updates))
 
 if __name__ == '__main__':
     main()
