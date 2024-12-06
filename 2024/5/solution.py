@@ -57,7 +57,7 @@ def fix_update(rules_ls: list[str], update: list[str]) -> list[str]:
         for r in rules_ls:
             # get numbers listed in rule
             [r1, r2] = r.replace(',', '').split('|')
-            # check numbers exist in update
+            # check numbers exist in updategit
             if update.count(r1) > 0 and update.count(r2) > 0:
                 # find position of each number in rule in pages ls and check rules are followed
                 if update.index(r1) > update.index(r2):
