@@ -84,15 +84,47 @@ def count_x(input_data: np.array) -> int:
 
 def part2(char_arr: list[list[str]]) -> int:
     print('-----Part2-----')
-    ans: int = 0
+    # place obstruction on x marked spot from part1
+    # if hit edge stop
+    # if repeating path stop??
+    raw_data: np.array = np.array(char_arr)
     input_data: np.array = np.array(char_arr)
+    ans: int = 0
+    stop: bool = False
+    while not stop:
+        # get position and direction of cursor
+        [curr_pos, curr_dir] = get_pos(input_data)
+        # move until object or edge of map reached
+        stop = move(input_data, curr_pos, curr_dir)
+        # get new cursor position
+        [curr_pos, curr_dir] = get_pos(input_data)
+        # turn 90 degrees
+        turn(input_data, curr_pos, curr_dir)  # maybe bug if cursor is overlayed when edge reached
+    x_pos = np.where(input_data == 'x')
+    new_input = np.copy(input_data)
+    new_input[x_pos[0][0], x_pos[1][0]] = '#'
+    print(new_input)
     return ans
+
+def check_loop(input_data: np.array):
+    ans: int = 0
+    stop: bool = False
+    while not stop:
+        # get position and direction of cursor
+        [curr_pos, curr_dir] = get_pos(input_data)
+        # move until object or edge of map reached
+        stop = move(input_data, curr_pos, curr_dir)
+        # get new cursor position
+        [curr_pos, curr_dir] = get_pos(input_data)
+        # turn 90 degrees
+        turn(input_data, curr_pos, curr_dir)  # maybe bug if cursor is overlayed when edge reached
+    x_pos = np.where(input_data == 'x')
 
 def main() -> None:
     print('-----DayN-----')
     char_arr: list[list[str]] = utils.read_char_arr('input.txt')
     print(part1(char_arr))
-    print(part2(char_arr))
+    # print(part2(char_arr))
 
 if __name__ == '__main__':
     main()
