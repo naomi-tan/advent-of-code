@@ -1,3 +1,5 @@
+from utils import utils
+
 def part1(input_data: list[str]) -> int:
     print('-----Part1-----')
     ans: int = 0
@@ -66,16 +68,9 @@ def part2(input_data: list[str]) -> int:
                 break
     return ans
 
-def read_lines(path: str) -> list[str]: # get_data
-    """gets data from input.txt file, returns data as a list of strings, each item is a line in the input.txt file"""
-    file = open(path, 'r')
-    data: list[str] = file.read().split('\n')
-    file.close()
-    return data
-
 def main() -> None:
     print('-----DayN-----')
-    input_data: list[str] = read_lines('input.txt')
+    input_data: list[str] = utils.read_lines('input.txt')
     print(part1(input_data))
     # print(part2(input_data))
 
