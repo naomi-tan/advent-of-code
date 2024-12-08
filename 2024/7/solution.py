@@ -15,7 +15,7 @@ def part1(input_data: list[str]) -> int:
 
         for ops in range(max_ops):
             operators = list(base10_to_basen(ops, 2).zfill(n_ops), )
-            solution = calculate(nums.copy(), operators)
+            solution = calculate(nums.copy(), operators, test_val)
             if solution == int(test_val):
                 ans += solution
                 break
@@ -29,17 +29,19 @@ def base10_to_basen(ops: int, base: int) -> str:
     else:
         return base10_to_basen(quotient, base) + str(remainder)
 
-def calculate(nums: list[str], operators: list[str]) -> int:
+def calculate(nums: list[str], operators: list[str], test_val: str) -> int:
     result = nums[0]
     nums.pop(0)
     for i in range(len(operators)):
         result = perform_operation(result, nums[0], operators[0])
+        if result > int(test_val):
+            break
         nums.pop(0)
         operators.pop(0)
     return result
 
 def perform_operation(num1: str, num2: str, operator: str) -> int | float:
-    # operators = {0: '+', 1: '-', 2: '||'}
+    # operators = {0: '+', 1: '*', 2: '||'}
     num1 = int(num1)
     num2 = int(num2)
     match operator:
@@ -62,7 +64,7 @@ def part2(input_data: list[str]) -> int:
 
         for ops in range(max_ops):
             operators = list(base10_to_basen(ops, 3).zfill(n_ops), )
-            solution = calculate(nums.copy(), operators)
+            solution = calculate(nums.copy(), operators, test_val)
             if solution == int(test_val):
                 ans += solution
                 break
@@ -71,8 +73,8 @@ def part2(input_data: list[str]) -> int:
 def main() -> None:
     print('-----DayN-----')
     input_data: list[str] = utils.read_lines('input.txt')
-    print(part1(input_data))
-    # print(part2(input_data))
+    # print(part1(input_data))
+    print(part2(input_data))
 
 if __name__ == '__main__':
     main()
