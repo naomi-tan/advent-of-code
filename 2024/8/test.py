@@ -2,9 +2,9 @@ import unittest
 from utils import utils
 import solution
 
-test_data = utils.read_lines('test.txt')
-expected_result1: int = -1
-expected_result2: int = -1
+test_data = utils.read_char_arr('test.txt')
+expected_result1: int = 14
+expected_result2: int = 34
 
 class TestSolution(unittest.TestCase):
 
