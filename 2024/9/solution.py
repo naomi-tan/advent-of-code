@@ -59,7 +59,7 @@ def part2(input_data: str) -> int:
                 disk.append(int(char_index / 2))
         else:
             # space
-            disk.extend(dequeue_files(input_data, char))
+            disk.extend(dequeue_files(input_data, char, char_index))
         flip_flop = not flip_flop
         char_index += 1
     ans = check_sum(disk)
@@ -75,21 +75,28 @@ def dequeue_file(input_data: list[int], space_len: int, files=None) -> list[int]
     # repeat
     return files
 
-def dequeue_files(input_data: list[int], no_of_blocks: int, blocks=None) -> list[int]:
+def dequeue_files(input_data: list[int], space_len: int, char_index: int, blocks=None) -> list[int]:
     # get list of chars to append, represent space with 0
+    eof = False
     if blocks is None:
-        blocks: list[int] = []
-    if no_of_blocks == 0:
-        # pad trailing 0s
-        return blocks
-    else:
-        if input_data[-1] == 0 or len(input_data) % 2 == 0:
-            input_data.pop()
+        blocks = []
+    while (space_len > 0) and (eof == False):
+        for i in range(int((len(input_data) - 1) / 2) - char_index):
+            if input_data[-(2 * i + 1)] < space_len:
+                print(input_data)
+                print(input_data[-(2 * i + 1)], len(input_data), space_len, int((len(input_data) - (i + 1))/2))
+                space_len = space_len - input_data[-(2 * i + 1)]
+                for j in range(input_data[-(2 * i + 1)]):
+                    blocks.append(int((len(input_data) - (i + 1))/2))
+                input_data.pop()
+                input_data.pop()
+                break
         else:
-            blocks.append(int(len(input_data) / 2))
-            input_data[-1] = input_data[-1] - 1
-            no_of_blocks -= 1
-        dequeue_files(input_data, no_of_blocks, blocks)
+            eof = True
+    if len(blocks) < input_data[char_index]:
+        for k in range(input_data[char_index] - len(blocks)):
+            blocks.append(0)
+    print(blocks)
     return blocks
 
 def main() -> None:
