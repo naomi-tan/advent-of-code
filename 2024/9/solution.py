@@ -47,7 +47,7 @@ def part2(input_data: str) -> int:
     print('-----Part2-----')
     ans: int = 0
     input_data = list(map(lambda a: int(a), list(input_data)))
-    print(input_data)
+    og_indexes = [i for i in range(len(input_data))]
 
     char_index = 0
     flip_flop = True
@@ -56,11 +56,14 @@ def part2(input_data: str) -> int:
         if flip_flop:
             # file
             for i in range(char):
+                print(int(char_index / 2))
                 disk.append(int(char_index / 2))
         else:
             # space
-            disk.extend(dequeue_files(input_data, char, char_index))
+            print('in', input_data)
+            disk.extend(dequeue_files(input_data, char, char_index, og_indexes))
         flip_flop = not flip_flop
+        print('di', disk)
         char_index += 1
     ans = check_sum(disk)
     print(disk)
@@ -68,42 +71,37 @@ def part2(input_data: str) -> int:
     # 00992111777.44.333....5555.6666.....8888..
     return ans
 
-def dequeue_file(input_data: list[int], space_len: int, files=None) -> list[int]:
-    # get list of chars to append
-    # get file len
-    # compare
-    # repeat
-    return files
-
-def dequeue_files(input_data: list[int], space_len: int, char_index: int, blocks=None) -> list[int]:
+def dequeue_files(input_data: list[int], space_len: int, char_index: int, og_indexes) -> list[int]:
     # get list of chars to append, represent space with 0
     eof = False
-    if blocks is None:
-        blocks = []
-    while (space_len > 0) and (eof == False):
-        for i in range(int((len(input_data) - 1) / 2) - char_index):
-            if input_data[-(2 * i + 1)] < space_len:
-                print(input_data)
-                print(input_data[-(2 * i + 1)], len(input_data), space_len, int((len(input_data) - (i + 1))/2))
-                space_len = space_len - input_data[-(2 * i + 1)]
-                for j in range(input_data[-(2 * i + 1)]):
-                    blocks.append(int((len(input_data) - (i + 1))/2))
+    blocks = []
+    for i in range(int((len(input_data) - char_index)/2) - 1):
+        index = -(2 * i + 1)
+        block = input_data[index]
+        if input_data[index] <= space_len:
+            space_len = space_len - input_data[-(2 * i + 1)]
+            for j in range(input_data[-(2 * i + 1)]):
+                my_i = int((len(input_data) - (2 * i + 1))/2)
+                blocks.append(int(og_indexes[index]/2))
+                print(og_indexes[index]/2, my_i)
+            input_data.pop(index)
+            og_indexes.pop(index)
+            if index < len(input_data):
+                input_data[index - 1] += input_data.pop(index)
+                og_indexes[index - 1] += og_indexes.pop(index)
+            else:
                 input_data.pop()
-                input_data.pop()
-                break
-        else:
-            eof = True
+                og_indexes.pop()
     if len(blocks) < input_data[char_index]:
         for k in range(input_data[char_index] - len(blocks)):
             blocks.append(0)
-    print(blocks)
     return blocks
 
 def main() -> None:
     print('-----DayN-----')
-    input_data: str = utils.read_str('test.txt')
-    # print(part1(input_data))
-    print(part2(input_data))
+    input_data: str = utils.read_str('input.txt')
+    print(part1(input_data))
+    # print(part2(input_data))
 
 if __name__ == '__main__':
     main()
