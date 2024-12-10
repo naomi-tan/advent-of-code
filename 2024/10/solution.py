@@ -31,13 +31,12 @@ class Data:
         self.row = row
         self.col = col
 
-def create_tree(input_data: list[list[int]], root_node: list[int]) -> TreeUtils.Node:
+def create_tree(input_data: list[list[int]], root_node: list[int]) -> [TreeUtils.Node|list[tuple]]:
     # data = Data(input_data[root_node[0]][root_node[1]], root_node[0], root_node[1])
     data = tuple([input_data[root_node[0]][root_node[1]], root_node[0], root_node[1]])
     root = TreeUtils.Node(data)
     neighbour_pos = [[-1, 0], [0, 1], [1, 0], [0, -1]]
     parent_nodes = [root]
-    i = 0
     all_ends = []
     while True:
         child_nodes = []
@@ -54,8 +53,6 @@ def create_tree(input_data: list[list[int]], root_node: list[int]) -> TreeUtils.
         parent_nodes = child_nodes
         if len(child_nodes) == 0:
             break
-        i += 1
-    total_summits = 0
     return [root, all_ends]
 
 
