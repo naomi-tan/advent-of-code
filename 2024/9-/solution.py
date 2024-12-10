@@ -69,6 +69,8 @@ def part2(input_data: str) -> int:
     # print(list('00992111777.44.333....5555.6666.....8888..'))
     return ans
 
+# class
+
 def dequeue_files2(input_data: list[int], char_index: int, og_indexes) -> list[int]:
     blocks = []
     print('---')

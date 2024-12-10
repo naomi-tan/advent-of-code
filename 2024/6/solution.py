@@ -75,10 +75,8 @@ def part2(input_data2: list[list[str]], route: list[list[int]]):
             input_data[stepped_pos[0]][stepped_pos[1]] = '#'
         exit_map = False
         loop = False
-        i = 0
         dir_map = {}
-        # drop_dir(dir_map, position, direction)
-        while not exit_map and not loop and (i < 10000):
+        while not exit_map and not loop:
             [next_char, next_pos] = look_ahead(input_data, direction, position)
             if next_char == '#':
                 loop = drop_dir(dir_map, position, direction)
@@ -91,10 +89,11 @@ def part2(input_data2: list[list[str]], route: list[list[int]]):
                 loop = drop_dir(dir_map, position, direction)
                 step(input_data, position, direction, next_pos)
                 position = next_pos
-            i += 1
         if loop:
             ans += 1
     return ans
+
+# class
 
 def drop_dir(dir_map: dict, position: list[int], direction: str) -> bool:
     dir_key = ','.join(list(map(lambda a: str(a), position)))

@@ -1,4 +1,5 @@
 import re
+import math
 
 def read_str(path: str) -> str: # get_raw
     """gets raw data from input.txt file, returns data as a string"""
@@ -79,6 +80,21 @@ def get_neighbours(raw_arr: list[list[str]], item_row: int, item_col: int, item_
             else:
                 neighbours.append('')
     return neighbours
+
+def get_manhattan_neighbours(input_data: list[list[int]], position: list[int]) -> list[int]:
+    """returns neighbours top, right, bottom, left"""
+    neighbours = []
+    n_pos = [[position[0] - 1, position[1]], [position[0], position[1] + 1], [position[0] + 1, position[1]], [position[0], position[1] - 1]]
+    for p in n_pos:
+        if in_bounds(p, len(input_data), len(input_data[0])):
+            neighbours.append(input_data[p[0]][p[1]])
+        else:
+            neighbours.append(math.nan)
+    return neighbours
+
+def in_bounds(pos: list[int], x_max: int, y_max: int) -> bool:
+    """check if position is in bounds of array"""
+    return (0 <= pos[0] < x_max) and (0 <= pos[1] < y_max)
 
 
 # parsing, 2d grids, graph algorithms, bfs, dfs, 2d arrays, hash tables (sparse grid (x, y) -> value),

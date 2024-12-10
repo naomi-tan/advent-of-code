@@ -1,11 +1,10 @@
 import unittest
 from utils import utils
 import solution
-# doesn't run need to update, see solution main()
 
-test_data = utils.read_char_arr('test.txt')
-expected_result1: int = 41
-expected_result2: int = 6
+test_data = utils.read_lines('test.txt')
+expected_result1: int = 36
+expected_result2: int = -1
 
 class TestSolution(unittest.TestCase):
 
