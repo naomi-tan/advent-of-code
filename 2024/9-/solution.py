@@ -56,20 +56,50 @@ def part2(input_data: str) -> int:
         if flip_flop:
             # file
             for i in range(char):
-                print(int(char_index / 2))
+                # print(int(char_index / 2))
                 disk.append(int(char_index / 2))
         else:
             # space
-            print('in', input_data)
-            disk.extend(dequeue_files(input_data, char, char_index, og_indexes))
+            disk.extend(dequeue_files2(input_data, char_index, og_indexes))
         flip_flop = not flip_flop
-        print('di', disk)
         char_index += 1
     ans = check_sum(disk)
     print(disk)
-    # 2858
-    # 00992111777.44.333....5555.6666.....8888..
+    # print(list('2858'))
+    # print(list('00992111777.44.333....5555.6666.....8888..'))
     return ans
+
+def dequeue_files2(input_data: list[int], char_index: int, og_indexes) -> list[int]:
+    blocks = []
+    print('---')
+    # input data is length
+    # for each gap move file that fits
+    for i in range(len(input_data)):
+        ir = len(input_data) - 1 - i
+        if ir % 2 == 1:
+            print('space', ir, input_data[ir], og_indexes[ir])
+        if ir % 2 == 0:
+            print('file', ir, input_data[ir], og_indexes[ir])
+            if input_data[ir] <= input_data[char_index]:
+                for j in range(input_data[ir]):
+                    blocks.append(int(og_indexes[ir] / 2))
+
+                input_data[char_index] -= input_data[ir]
+                input_data[ir - 1] += input_data[ir]
+                input_data.pop(ir)
+                og_indexes.pop(ir)
+
+                # 1 before = 1 before + 1 after unless end of arr
+                if ir < len(input_data) - 1:
+                    input_data[ir - 1] += input_data[ir]
+                    input_data.pop(ir)
+                    og_indexes.pop(ir)
+                else:
+                    input_data.pop()
+                    og_indexes.pop()
+                break
+    print(blocks)
+    return blocks
 
 def dequeue_files(input_data: list[int], space_len: int, char_index: int, og_indexes) -> list[int]:
     # get list of chars to append, represent space with 0
@@ -99,9 +129,9 @@ def dequeue_files(input_data: list[int], space_len: int, char_index: int, og_ind
 
 def main() -> None:
     print('-----DayN-----')
-    input_data: str = utils.read_str('input.txt')
-    print(part1(input_data))
-    # print(part2(input_data))
+    input_data: str = utils.read_str('test.txt')
+    # print(part1(input_data))
+    print(part2(input_data))
 
 if __name__ == '__main__':
     main()
