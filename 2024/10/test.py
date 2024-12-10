@@ -4,7 +4,7 @@ import solution
 
 test_data = utils.read_lines('test.txt')
 expected_result1: int = 36
-expected_result2: int = -1
+expected_result2: int = 81
 
 class TestSolution(unittest.TestCase):
 
