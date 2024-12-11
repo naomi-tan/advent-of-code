@@ -9,14 +9,15 @@ def part1(input_data: list[str]) -> int:
 
 def compute_nodes(input_data: list[int], no_blinks: int) -> int:
     # is it just a graph with cycles?
+    # order is preserved but doesn't matter for no of stones count
     node_count = {}
+    new_node_count = {}
     for s in input_data:
         if s in node_count:
             node_count[s] += 1
         else:
             node_count[s] = 1
 
-    # new_node_count = node_count
     for b in range(no_blinks):
         new_node_count = {}
         for s in node_count:
@@ -25,7 +26,6 @@ def compute_nodes(input_data: list[int], no_blinks: int) -> int:
                     new_node_count[1] += node_count[s]
                 else:
                     new_node_count[1] = node_count[s]
-                # new_node_count[1] = node_count[s]
             elif (len(str(s)) % 2) == 0:
                 if int(str(s)[:int(len(str(s)) / 2)]) in new_node_count:
                     new_node_count[int(str(s)[:int(len(str(s)) / 2)])] += node_count[s]
