@@ -2,15 +2,17 @@ from utils import utils
 import cv2 as cv
 import numpy as np
 from PIL import Image
-# import skimage
-from skimage.measure import label, regionprops
+from skimage.measure import regionprops
 import skimage.io as io
+import scipy.ndimage as sp
+from skimage.feature import blob_log
 
 def part1(input_str, input_arr) -> int:
     print('-----Part1-----')
     ans: int = 0
 
     distinct_chars = get_distinct_chars(input_str)
+    # needs some sort of blob separation
 
     for i in range(len(input_arr)):
         for j in range(len(input_arr[0])):
@@ -19,15 +21,14 @@ def part1(input_str, input_arr) -> int:
 
     for i in range(len(distinct_chars)):
         bin_img = np.asarray(list(map(lambda a: list(map(lambda b: int(b==i)*255, a)), input_arr)), dtype=np.uint8)
+
         input_img = Image.fromarray(bin_img)
         input_img.save('input_img.png')
         im = io.imread('input_img.png')
-        regions = regionprops(im.astype(int))
-        area = regions[0].num_pixels
-        x = regions[0].perimeter
-        print(x)
-        # masked_arr = np.ma.masked_where(np_arr !=i, np_arr)
-        # print(masked_arr)
+        im2 = sp.binary_fill_holes(im) * 255
+        [p, a] = perimeter(im2)
+
+        ans += p*a
 
     # for each char apply mask to get binary image
     # depth first search to separate segments
@@ -38,6 +39,24 @@ def part1(input_str, input_arr) -> int:
     # clustering algorithm
     return ans
 
+def perimeter(bin_arr):
+    padded_arr = np.zeros((bin_arr.shape[0] + 2, bin_arr.shape[1] + 2))
+    padded_arr[1:bin_arr.shape[0]+1, 1:bin_arr.shape[1]+1] = bin_arr
+    [x_ls, y_ls] = np.where(padded_arr == 255)
+    area = len(x_ls)
+    perim = 0
+    for x, y in zip(x_ls, y_ls):
+        if padded_arr[x - 1 , y] == 0:
+            perim += 1
+        if padded_arr[x + 1 , y] == 0:
+            perim += 1
+        if padded_arr[x, y - 1] == 0:
+            perim += 1
+        if padded_arr[x, y + 1] == 0:
+            perim += 1
+    # print(perim) # 32 is 28, 30 is 22
+    return [perim, area]
+
 def part2(input_data: list[list[str]]) -> int:
     print('-----Part2-----')
     ans: int = 0
@@ -46,29 +65,9 @@ def part2(input_data: list[list[str]]) -> int:
 def get_distinct_chars(input_data: str):
     return sorted(list(set(list(input_data.replace('\n','')))))
 
-def convert_input_to_img(input_data, distinct_chars):
-    for i in range(len(input_data)):
-        for j in range(len(input_data[0])):
-            index = distinct_chars.index(input_data[i][j])
-            input_data[i][j] = index
-    pixel_arr = np.array(input_data, dtype=np.uint8)
-    pixel_arr = pixel_arr * int(255 / np.max(pixel_arr))
-    input_img = Image.fromarray(pixel_arr)
-    input_img.save('input_img.png')
-    return input_img
-
-def mask_arr(input_data, distinct_chars):
-    for i in range(len(input_data)):
-        for j in range(len(input_data[0])):
-            index = distinct_chars.index(input_data[i][j])
-            input_data[i][j] = index
-    np_arr = np.asarray(input_data, dtype=np.uint8)
-    masked_arr = np.ma.masked_where(np_arr != 2, np_arr)
-    return masked_arr
-
 def main() -> None:
     print('-----DayN-----')
-    file = 'input.txt'
+    file = 'test.txt'
     input_str: str = utils.read_str(file)
     input_arr: list[list[str]] = utils.read_char_arr(file)
     print(part1(input_str, input_arr))
