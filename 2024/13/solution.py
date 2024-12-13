@@ -1,4 +1,5 @@
 from utils import utils
+import numpy as np
 
 # define constants
 A_PRICE = 3
@@ -10,8 +11,8 @@ def part1(input_data: str) -> int:
     # simultaneous equations
     # solve graphically
     # point of intersection of 2 lines
-    [a_translations, b_translations, prize_positions] = parse_data(input_data, 0)
-    ans = calculate_presses(a_translations, b_translations, prize_positions)
+    [a_translations, b_translations, prize_positions] = parse_data(input_data)
+    ans = calculate_presses(a_translations, b_translations, prize_positions, 100)
     return ans
 
 def part2(input_data: str) -> int:
@@ -21,7 +22,7 @@ def part2(input_data: str) -> int:
     ans = calculate_presses(a_translations, b_translations, prize_positions)
     return ans
 
-def parse_data(input_data: str, error: int):
+def parse_data(input_data: str, error: int=0):
     input_data = input_data.split('\n\n')
     input_data = list(map(lambda a: a.split('\n'), input_data))
     a_translations = []
@@ -38,7 +39,7 @@ def parse_data(input_data: str, error: int):
                 prize_positions.append([int(nums[0].group()) + error, int(nums[1].group()) + error])
     return [a_translations, b_translations, prize_positions]
 
-def calculate_presses(a_translations, b_translations, prize_positions):
+def calculate_presses(a_translations, b_translations, prize_positions, upper_lim=np.inf):
     cost = 0
     # for each machine find intersection of lines
     for a, b, p in zip(a_translations, b_translations, prize_positions):
@@ -53,7 +54,7 @@ def calculate_presses(a_translations, b_translations, prize_positions):
         # intersection
         x = (b1 * c2 - b2 * c1) / (a1 * b2 - a2 * b1)
         y = (c1 * a2 - c2 * a1) / (a1 * b2 - a2 * b1)
-        if (0 <= x) and (0 <= y) and (x - int(x) == 0) and (y - int(y) == 0):
+        if (0 <= x <= upper_lim) and (0 <= y <= upper_lim) and (x - int(x) == 0) and (y - int(y) == 0):
             # calculate cost
             cost += int(x) * A_PRICE + int(y) * B_PRICE
     return cost

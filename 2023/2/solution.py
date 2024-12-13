@@ -84,7 +84,7 @@ def get_max_turn(game: Game) -> Turn:
 
 
 def part1(test_record: Record) -> int:
-    max_turn = Turn('12 red, 13 green, 14 blue')
+    max_turn = Turn('12- red, 13 green, 14 blue')
     valid_ids = []
     for i in range(test_record.num_games):
         valid = True

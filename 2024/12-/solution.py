@@ -21,13 +21,13 @@ def part1(input_str, input_arr) -> int:
 
     for i in range(len(distinct_chars)):
         bin_img = np.asarray(list(map(lambda a: list(map(lambda b: int(b==i)*255, a)), input_arr)), dtype=np.uint8)
+        print(bin_img)
 
         input_img = Image.fromarray(bin_img)
         input_img.save('input_img.png')
         im = io.imread('input_img.png')
         im2 = sp.binary_fill_holes(im) * 255
         [p, a] = perimeter(im2)
-
         ans += p*a
 
     # for each char apply mask to get binary image
