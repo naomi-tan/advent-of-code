@@ -16,12 +16,19 @@ def read_lines(path: str) -> list[str]: # get_data
     return data
 
 def read_word_arr(path: str) -> list[list[str]]: # get_arr
-    """gets data from input.txt file, returns data as a list of strings, each item is a line in the input.txt file"""
+    """gets data from input.txt file, returns data as a list of strings, each item is a word in the input.txt file"""
     file = open(path, 'r')
     lines: list[str] = file.read().split('\n')
     data: list[list[str]] = []
     for line in lines:
         data.append(line.split())
+    file.close()
+    return data
+
+def read_csv(path: str) -> list[str]: # get_arr
+    """gets data from input.txt file, returns data as a list of strings, each item is a word in the input.txt file"""
+    file = open(path, 'r')
+    data: list[str] = file.read().split(',')
     file.close()
     return data
 

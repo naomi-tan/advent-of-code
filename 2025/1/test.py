@@ -3,8 +3,8 @@ from utils import utils
 import solution
 
 test_data = utils.read_lines('test.txt')
-expected_result1: int = -1
-expected_result2: int = -1
+expected_result1: int = 3
+expected_result2: int = 6
 
 class TestSolution(unittest.TestCase):
 
