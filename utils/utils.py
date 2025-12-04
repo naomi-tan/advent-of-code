@@ -68,7 +68,7 @@ def in_range(lower: int, upper:int, number: int) -> bool:
     else:
         return True
 
-def get_neighbours(raw_arr: list[list[str]], item_row: int, item_col: int, item_len: int) -> list[str]:
+def get_neighbours(raw_arr: list[list[str]], item_row: int, item_col: int, item_len: int = 1) -> list[str]:
     """returns [(x-1, y-1), (x-1, y), (x-1, y+1), (x, y-1), (x, y+1), (x+1, y-1), (x+1, y), (x+1, y+1)]"""
     num_rows = len(raw_arr)
     num_cols = len(raw_arr[0])

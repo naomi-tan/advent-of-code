@@ -1,4 +1,5 @@
 from utils import utils
+import re
 
 def part1(input_data: list[str]) -> int:
     print('-----Part1-----')
@@ -11,6 +12,7 @@ def part1(input_data: list[str]) -> int:
         for i in range(len(str(start)), len(str(end)) + 1):
             # check if valid length i.e. divisible by 2
             if i%2 == 0:
+                # get first repeating number of length
                 x = int(str(start)[:int(i/2)]) if len(str(start)) == i else int('1' + ''.join(['0']*(int(i/2)-1)))
                 n = int(str(x)*2)
                 while n <= end:
