@@ -20,18 +20,19 @@ def part1(input_data: list[str]) -> int:
                         ans += n
                     x += 1
                     n = int(str(x)*2)
-    print(ans)
     return ans
 
 def part2(input_data: list[str]) -> int:
     print('-----Part2-----')
     ans: int = 0
+    pattern = r'^(\d+)\1+$'
     # split input data into id ranges
     id_ranges: [] = [[int(x) for x in item.split('-')] for item in input_data]
     # get all invalid ID's in range
     for [start, end] in id_ranges:
-        print(start, end)
-    print(ans)
+        for i in range(start, end + 1):
+            if re.search(pattern, str(i)) is not None:
+                ans += i
     return ans
 
 def main() -> None:
